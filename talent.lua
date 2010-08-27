@@ -1,6 +1,6 @@
 local addon = CreateFrame'Frame'
 
-local function CreateDialogFrame()
+local function Init()
 	local d = CreateFrame("Frame", "TalentManagerDialog", PlayerTalentFrame, "UIPanelDialogTemplate")
 
 	d:Hide()
@@ -30,6 +30,30 @@ local function CreateDialogFrame()
 		tinsert(d.buttons, button);
 	end
 
+	local s = CreateFrame("CheckButton", "TalentManagerSaveSpec", d, "UIPanelButtonTemplate")
+
+	s:SetHeight(22)
+	s:SetWidth(78)
+	s:SetText"Save"
+
+	s:SetPoint("BOTTOMRIGHT", d, -8, 12)
+	
+	local l = CreateFrame("CheckButton", "TalentManagerLoadSpec", d, "UIPanelButtonTemplate")
+
+	l:SetHeight(22)
+	l:SetWidth(78)
+	l:SetText"Load"
+
+	l:SetPoint("BOTTOMLEFT", d, 93, 12)
+	
+	local del = CreateFrame("CheckButton", "TalentManagerDelSpec", d, "UIPanelButtonTemplate")
+
+	del:SetHeight(22)
+	del:SetWidth(78)
+	del:SetText"Delete"
+
+	del:SetPoint("BOTTOMLEFT", d, 11, 12)
+	
 	local b = CreateFrame("CheckButton", "TalentManagerTab", PlayerTalentFrame, "PlayerSpecTabTemplate,SecureActionButtonTemplate")
 	
 	b:SetPoint("TOPLEFT", PlayerSpecTab3, "BOTTOMLEFT", 0, -22)
@@ -72,7 +96,7 @@ end
 
 addon:SetScript('OnEvent', function(self, event, addon, ...)
 	if addon == "Blizzard_TalentUI" then
-		CreateDialogFrame()
+		Init()
 		self:UnregisterEvent'ADDON_LOADED'
 	end
 end)
